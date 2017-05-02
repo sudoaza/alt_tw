@@ -8,3 +8,6 @@ gem 'nokogiri'
 gem 'rf-rest-open-uri'
 gem 'watir'
 gem 'watir-scroll'
+
+# Testing
+gem 'rake'
