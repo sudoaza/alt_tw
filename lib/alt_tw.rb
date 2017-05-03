@@ -39,10 +39,39 @@ module AltTwitter
     end
 
     def login(username, password)
-      session.visit "https://twitter.com"
-      session.browser.text_field(id: "signin-email").set username
-      session.browser.text_field(id: "signin-password").set password
-      session.browser.form(class: 'LoginForm').button(class: 'js-submit').click
+      session.visit 'https://twitter.com'
+      show_login.click unless login_form.visible?
+      if login_form.visible?
+        login_field.set username
+        password_field.set password
+        login_button.click
+      end
+    end
+
+    def login_form
+      session.browser.form(class: 'LoginForm')
+    end
+
+    def show_login
+      session.browser.link(class: 'StreamsLogin')
+    end
+
+    def login_field
+      login_form.element(class: 'LoginForm-username').text_field(class: 'text-input')
+    end
+
+    def password_field
+      login_form.element(class: 'LoginForm-password').text_field(class: 'text-input')
+    end
+
+    def login_button
+      login_form.button(class: 'js-submit')
+    end
+
+    def tweet(text)
+      session.browser.element(id: 'tweet-box-home-timeline').click
+      session.browser.send_keys text
+      session.browser.send_keys [:control, :return]
     end
   end
 end
