@@ -25,6 +25,6 @@ tweets = t.search "free icecream"
 ```
 t = AltTwitter::Twitter.new
 t.login('username','password')
-t.tweet('look mom, no api keys')
+t.tweet('Look mom, no api keys!')
 
 ```
